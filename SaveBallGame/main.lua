@@ -93,7 +93,7 @@ end
 local timer = 0
 local interval = 1
 local fives = 0
-
+local lastPoint = 0
 
 function love.update(dt)
 
@@ -105,6 +105,7 @@ function love.update(dt)
     if game.state.lost then
         fives = 0
         game.level = 1
+        lastPoint = game.points
         game.points = 0
         saveMouseX = love.graphics.getWidth()/2
         saveMouseY = love.graphics.getHeight()/2
@@ -202,6 +203,14 @@ function love.draw()
         buttonsMenu.play_game:draw()
         buttonsMenu.exit_game:draw()
     elseif game.state.paused then
+        love.graphics.setColor(1, 1, 1) -- Set text color to white
+        love.graphics.printf(
+            lastPoint,
+            font,
+            0,40,
+            love.graphics.getWidth(),
+            "left"
+        )
         buttonsPaused.new_game:draw()
         buttonsPaused.exit_game:draw()
     end
